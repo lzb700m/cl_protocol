@@ -1,0 +1,12 @@
+# six global parameters
+3 2 4 100 2000 10
+
+# nodeID hostName listenPort
+0 dc02 19999
+1 dc03 19999
+2 dc04 19999
+
+# space delimited list of neighbors for each node as listed above
+1 2 # for node 0
+0 # for node 1
+0 # for node 2
