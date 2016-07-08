@@ -13,6 +13,8 @@ import java.util.Queue;
 import java.util.Scanner;
 import java.util.Set;
 
+import cl.Prj1Config;
+
 /**
  * Configuration file parser: parse information from configuration file, ignore
  * all comments; build structured information for easier extraction; build
@@ -23,9 +25,6 @@ import java.util.Set;
  */
 
 public class ConfigParser {
-	private static final String CONFIGURATION_COMMENT = "#";
-	private static final String HOST_SUFFIX = ".utdallas.edu";
-	public static final int SNAPSHOT_INIT_BY = 0;
 
 	private String path;
 	private int systemSize;
@@ -34,7 +33,7 @@ public class ConfigParser {
 	private int minSendDelay;
 	private int snapShotDelay;
 	private int maxNumber;
-	private String identifier;
+	private String identifier; // configuration file name
 	private int[] parents;
 
 	Map<Integer, String> hostMap;
@@ -55,8 +54,9 @@ public class ConfigParser {
 
 		while (sc.hasNext()) {
 			String line = sc.nextLine();
-			if (line.indexOf(CONFIGURATION_COMMENT) != -1) {
-				line = line.substring(0, line.indexOf(CONFIGURATION_COMMENT));
+			if (line.indexOf(Prj1Config.CONFIGURATION_COMMENT) != -1) {
+				line = line.substring(0,
+						line.indexOf(Prj1Config.CONFIGURATION_COMMENT));
 			}
 			line = line.trim();
 			if (line != null && line.length() != 0) {
@@ -77,7 +77,7 @@ public class ConfigParser {
 		for (int i = 0; i < systemSize; i++) {
 			String[] line = sc.nextLine().split("\\s+");
 			lineToNode[i] = Integer.parseInt(line[0]);
-			hostMap.put(lineToNode[i], line[1] + HOST_SUFFIX);
+			hostMap.put(lineToNode[i], line[1] + Prj1Config.HOST_SUFFIX);
 			portMap.put(lineToNode[i], Integer.parseInt(line[2]));
 		}
 
@@ -101,7 +101,7 @@ public class ConfigParser {
 			identifier += path.substring(lastSlashIndex + 1);
 		}
 
-		spanningTreeGen(SNAPSHOT_INIT_BY, neighborMap);
+		spanningTreeGen(Prj1Config.SNAPSHOT_INIT_BY, neighborMap);
 	}
 
 	/*

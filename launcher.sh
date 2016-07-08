@@ -8,10 +8,10 @@ CONFIG=$1
 NETID=$2
 
 # Classpath on remote machine
-REMOTECLASSPATH=./workspace/aos_prj1
+REMOTECLASSPATH=./workspace/cl_protocol/src
 
 # Class name containing main program
-PROG=AosPrj1
+PROG=cl.AosPrj1
 
 # Count number of lines, and calculate number of nodes
 lineCount=$(cat $CONFIG | sed -e "s/#.*//" | sed -e "/^\s*$/d" | wc -l)
@@ -31,7 +31,7 @@ cat $CONFIG | sed -e "s/#.*//" | sed -e "/^\s*$/d" | (
 
     # Combine information extracted, construct command
     for(( c=1; c<=n; c++ )) do
-    	ssh $NETID@${hostId[$c]} java -cp $REMOTECLASSPATH $PROG ${nodeId[$c]} ./$CONFIG &
-        echo "ssh $NETID@${hostId[$c]} java -cp $REMOTECLASSPATH $PROG ${nodeId[$c]} $CONFIG &"
+    	ssh $NETID@${hostId[$c]} java -cp $REMOTECLASSPATH $PROG ${nodeId[$c]} ./workspace/cl_protocol/config/$CONFIG &
+        echo "ssh $NETID@${hostId[$c]} java -cp $REMOTECLASSPATH $PROG ${nodeId[$c]} ./workspace/cl_protocol/config/$CONFIG &"
     done
 )
